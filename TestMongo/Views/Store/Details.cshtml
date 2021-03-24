@@ -1,0 +1,121 @@
+﻿@using MongoDB.Bson;
+@using MongoDB.Driver;
+@using TestMongo.Models;
+@using System.Linq;
+
+
+@model TestMongo.Models.Store
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Store</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Adress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Adress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Images) 
+        </dt>
+
+        <dd>
+            <img src=@Html.DisplayFor(model => model.Images) alt="" width="100" height="100" />
+        </dd>
+        <dd>
+            @{
+
+                MongoContext ctx;
+                ctx = new MongoContext();
+                var IceCreamDetails = ctx._database.GetCollection<IceCream>("IceCream").FindAll().ToList();
+            }
+
+            <table class="table">
+                <tr>
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        Image
+                    </th>
+                    <th>
+                         Rating
+                    </th>
+                    <th>
+                        Calories
+                    </th>
+                    <th>
+                        Fats
+                    </th>
+                    <th>
+                        Proteins
+                    </th>
+                    <th></th>
+                </tr>
+                @{ List<IceCream> iceCreams = Model.IceCreams;
+                    if (iceCreams != null)
+                    {
+                        foreach (var item in iceCreams)
+                        {
+                            <tr>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Description)
+                                </td>
+                                <td>
+                                    <img src=@Html.DisplayFor(modelItem => item.Image) alt="" width="100" height="100" />
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Rating)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Calories)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Fats)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Protein)
+                                </td>
+                            </tr>
+                        }
+                    }
+
+                }
+            </table>
+        </dd>
+
+        <dd style="font-family:'Arial Rounded MT';color:palevioletred">
+
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

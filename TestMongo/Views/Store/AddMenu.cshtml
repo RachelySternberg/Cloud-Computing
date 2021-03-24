@@ -1,0 +1,82 @@
+﻿@using MongoDB.Bson;
+@using MongoDB.Driver;
+@using TestMongo.Models;
+@using System.Linq;
+
+
+@{
+    ViewBag.Title = " Add Ice Cream to Store";
+
+}
+@{
+
+    MongoContext ctx;
+    ctx = new MongoContext();
+    var IceCreamDetails = ctx._database.GetCollection<IceCream>("IceCream").FindAll().ToList();
+}
+
+<table class="table">
+    <tr>
+        <th>
+            Description
+        </th>
+        <th>
+            Image
+        </th>
+        <th>
+            Rating
+        </th>
+        <th>
+            Calories
+        </th>
+        <th>
+            Fats
+        </th>
+        <th>
+            Protein
+        </th>
+        <th>
+            NutritionalValues
+        </th>
+
+
+
+    </tr>
+
+    @{ foreach (var item in IceCreamDetails)
+        {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            <img src=@Html.DisplayFor(modelItem => item.Image) alt="" width="100" height="100" />
+
+
+            @*@{var imagePath1 = "/" + item.Image; }
+            <img src="@imagePath1" width="45" style="border-radius: 45px;" />*@
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Rating)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.Calories)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fats)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Protein)
+        </td>
+
+        <td>
+            @Html.ActionLink("Add Ice Cream", "AddIceCream", new { id = item.Id })
+        </td>
+    </tr>
+        }
+    }
+</table>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,95 @@
+﻿@model IEnumerable<TestMongo.Models.IceCream>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<ul>
+    <li>
+        <h4>Ice Cream By Description</h4>
+        @using (Html.BeginForm("Index", "IceCream"))
+        {
+            <input type="text" id="des" name="des" />
+            <br />
+            <input type="submit" value="Search" />
+        }
+    </li>
+    <li>
+        <h4>Ice Cream By Nutrients</h4>
+        @using (Html.BeginForm("Index", "IceCream"))
+        {
+            <input type="hidden" id="search_nutrients" name="search_nutrients" value="true" />
+            <input type="text" id="protein" name="protein" placeholder="Protein" />
+            <input type="text" id="fats" name="fats" placeholder="Fats (fat)" />
+            <input type="text" id="calories" name="calories" placeholder="Calories" />
+            <br />
+            <input type="submit" value="Search" />
+        }
+    </li>
+</ul>
+
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Image)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rating)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Calories)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fats)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Protein)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NutritionalValues)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Image)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rating)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Calories)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fats)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Protein)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NutritionalValues)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+    }
+
+</table>
